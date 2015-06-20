@@ -591,7 +591,7 @@ a.text-info:hover {
 a.text-success:hover {
   color: #356635;
 }
-/*Modified for LXC Web Panel*/
+/*Modified for Pcap Total*/
 .text-left {
   text-align: left;
 }
@@ -4476,7 +4476,7 @@ a.badge:hover {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  /*Modified for LXC Web Panel*/
+  /*Modified for Pcap Total*/
   -webkit-transition: width 0.6s ease;
   -moz-transition: width 0.6s ease;
   -o-transition: width 0.6s ease;
@@ -4490,7 +4490,7 @@ a.badge:hover {
 }
 .progress-striped .bar {
   background-color: #149bdf;
-  /*Modified for LXC Web Panel*/
+  /*Modified for Pcap Total*/
   background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
