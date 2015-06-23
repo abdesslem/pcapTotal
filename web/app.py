@@ -30,7 +30,7 @@ app.config.from_object(__name__)
 # This is the path to the upload directory
 app.config['UPLOAD_FOLDER'] = 'uploads/'
 # These are the extension that we are accepting to be uploaded
-app.config['ALLOWED_EXTENSIONS'] = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+app.config['ALLOWED_EXTENSIONS'] = set(['txt', 'pdf', 'png', 'jpg', 'cap', 'pcap'])
 
 # For a given file, return whether it's an allowed type or not
 def allowed_file(filename):
@@ -51,7 +51,7 @@ def upload():
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         # Redirect the user to the uploaded_file route, which
         # will basicaly show on the browser the uploaded file
-        return redirect(url_for('uploaded_file',
+        return redirect(url_for('track',
                                 filename=filename))
 # This route is expecting a parameter containing the name
 # of a file. Then it will locate that file on the upload
@@ -61,6 +61,52 @@ def upload():
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
+
+@app.route('/stream/<filename>')
+def followstream(filename):
+    command = '../libs/Dshell/dshell-decode -d followstream '+ os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    return '<pre>' + _run(command) + '</pre>'
+
+@app.route('/netflow/<filename>')
+def netflow(filename):
+    command = '../libs/Dshell/dshell-decode -d netflow '+ os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    return '<pre>' + _run(command) + '</pre>'
+
+@app.route('/dns/<filename>')
+def dns(filename):
+    command = '../libs/Dshell/dshell-decode -d dns '+ os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    return '<pre>' + _run(command) + '</pre>'
+
+@app.route('/extract/<filename>')
+def extract(filename):
+    command = '../libs/Dshell/dshell-decode -d rip-http '+ os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    return '<pre>' + _run(command) + '</pre>'
+
+
+@app.route('/httpdump/<filename>')
+def httpdump(filename):
+    command = '../libs/Dshell/dshell-decode -d httpdump '+ os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    return '<pre>' + _run(command) + '</pre>'
+
+@app.route('/ip/<filename>')
+def ip(filename):
+    command = '../libs/Dshell/dshell-decode -d ip '+ os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    return '<pre>' + _run(command) + '</pre>'
+
+@app.route('/writer/<filename>')
+def writer(filename):
+    command = '../libs/Dshell/dshell-decode -d writer '+ os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    return '<pre>' + _run(command) + '</pre>'
+
+@app.route('/synrst/<filename>')
+def synrst(filename):
+    command = '../libs/Dshell/dshell-decode -d synrst '+ os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    return '<pre>' + _run(command) + '</pre>'
+
+@app.route('/track/<filename>')
+def track(filename):
+    command = '../libs/Dshell/dshell-decode -d track '+ os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    return '<pre>' + _run(command) + '</pre>'
 
 
 def connect_db():
