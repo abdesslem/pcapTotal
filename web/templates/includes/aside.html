@@ -7,12 +7,12 @@
 		{% if session.su == 'Yes' %}<ul class="nav nav-list">
 			<li class="nav-header">LXC Settings</li>
 			<li{% if request.path=="/settings/lxc-net" %} class="active"{% endif %}><a href=""><i class="icon-globe"></i> Follow Stream</a></li>
-			<li{% if request.path=="/checkconfig" %} class="active"{% endif %}><a href=""><i class="icon-check"></i> NetFlow </a></li>
+			<li{% if request.path=="/checkconfig" %} class="active"{% endif %}><a href="/netflow"><i class="icon-check"></i> NetFlow </a></li>
 		</ul>{% endif %}
 		<ul class="nav nav-list">
 			<li class="nav-header">Pcap Total</li>
-			{% if session.su == 'Yes' %}<li{% if request.path=="/lwp/users" %} class="active"{% endif %}><a href=""><i class="icon-user"></i> Users</a></li>{% endif %}
-			<li{% if request.path=="/about" %} class="active"{% endif %}><a href=""><i class="icon-info-sign"></i> About</a></li>
+			{% if session.su == 'Yes' %}<li{% if request.path=="/lwp/users" %} class="active"{% endif %}><a href="/users"><i class="icon-user"></i> Users</a></li>{% endif %}
+			<li{% if request.path=="/about" %} class="active"{% endif %}><a href="/about"><i class="icon-info-sign"></i> About</a></li>
 		</ul>
 	</div>
 </div>
