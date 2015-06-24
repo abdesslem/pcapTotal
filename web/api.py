@@ -1,7 +1,9 @@
 from flask import jsonify, abort, make_response
 from flask.ext.httpauth import HTTPBasicAuth
+from flask import Blueprint
+
+api = Blueprint('api', __name__)
 auth = HTTPBasicAuth()
-from app import app
 tasks = [
     {
         'id': 1,
@@ -17,13 +19,13 @@ tasks = [
     }
 ]
 
-@app.route('/todo/api/v1.0/tasks', methods=['GET'])
+@api.route('/todo/api/v1.0/tasks', methods=['GET'])
 #@auth.login_required
 def get_tasks():
     return jsonify({'tasks': tasks})
 
 
-@app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['GET'])
+@api.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['GET'])
 #@auth.login_required
 def get_task(task_id):
     task = [task for task in tasks if task['id'] == task_id]
@@ -31,7 +33,7 @@ def get_task(task_id):
         abort(404)
     return jsonify({'task': task[0]})
 
-@app.errorhandler(404)
+@api.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 

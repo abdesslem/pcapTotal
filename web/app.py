@@ -6,7 +6,7 @@ import os
 from flask import send_from_directory
 from werkzeug import secure_filename
 from flask import Flask, render_template,session, g, redirect, url_for, request, flash
-from api import sum
+from api import api
 try:
     import configparser
 except ImportError:
@@ -26,6 +26,7 @@ PORT = int(config.get('global', 'port'))
 
 app = Flask(__name__)
 app.config.from_object(__name__)
+app.register_blueprint(api)
 
 # This is the path to the upload directory
 app.config['UPLOAD_FOLDER'] = 'uploads/'
