@@ -63,53 +63,23 @@ def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
 
-@app.route('/stream/<filename>')
-def followstream(filename):
-    command = '../libs/Dshell/dshell-decode -d followstream '+ os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    return '<pre>' + _run(command) + '</pre>'
 
 @app.route('/netflow/<filename>')
 def netflow(filename):
-    command = '../libs/Dshell/dshell-decode -d netflow '+ os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    return '<pre>' + _run(command) + '</pre>'
-
+    return "ok"
 @app.route('/dns/<filename>')
 def dns(filename):
-    command = '../libs/Dshell/dshell-decode -d dns '+ os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    return '<pre>' + _run(command) + '</pre>'
-
+   return "ok"
 @app.route('/extract/<filename>')
 def extract(filename):
-    command = '../libs/Dshell/dshell-decode -d rip-http '+ os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    return '<pre>' + _run(command) + '</pre>'
-
+    return "ok"
 
 @app.route('/httpdump/<filename>')
 def httpdump(filename):
-    command = '../libs/Dshell/dshell-decode -d httpdump '+ os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    return '<pre>' + _run(command) + '</pre>'
-
+   return "ok"
 @app.route('/ip/<filename>')
 def ip(filename):
-    command = '../libs/Dshell/dshell-decode -d ip '+ os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    return '<pre>' + _run(command) + '</pre>'
-
-@app.route('/writer/<filename>')
-def writer(filename):
-    command = '../libs/Dshell/dshell-decode -d writer '+ os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    return '<pre>' + _run(command) + '</pre>'
-
-@app.route('/synrst/<filename>')
-def synrst(filename):
-    command = '../libs/Dshell/dshell-decode -d synrst '+ os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    return '<pre>' + _run(command) + '</pre>'
-
-@app.route('/track/<filename>')
-def track(filename):
-    command = '../libs/Dshell/dshell-decode -d track '+ os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    return '<pre>' + _run(command) + '</pre>'
-
-
+    return "ok"
 def connect_db():
     '''
     SQLite3 connect function
@@ -359,10 +329,6 @@ def login():
 
         flash(u'Invalid username or password!', 'error')
     return render_template('login.html')
-
-@app.route('/modules')
-def hello_world():
-    return '<pre>' + _run('../libs/Dshell/dshell-decode -l') + '</pre>'
 
 if __name__ == '__main__':
     app.run(debug=True)
