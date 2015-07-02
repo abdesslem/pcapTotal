@@ -8,6 +8,10 @@ from werkzeug import secure_filename
 from flask import Flask, render_template,session, g, redirect, url_for, request, flash
 from api import api
 from user import user
+import logging
+logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
+from scapy.all import *
+from scapy.utils import *
 try:
     import configparser
 except ImportError:
@@ -32,7 +36,7 @@ app.register_blueprint(user)
 # This is the path to the upload directory
 app.config['UPLOAD_FOLDER'] = 'uploads/'
 # These are the extension that we are accepting to be uploaded
-app.config['ALLOWED_EXTENSIONS'] = set(['txt', 'pdf', 'png', 'jpg', 'cap', 'pcap'])
+app.config['ALLOWED_EXTENSIONS'] = set(['pcapng','cap', 'pcap'])
 
 # For a given file, return whether it's an allowed type or not
 def allowed_file(filename):
@@ -63,24 +67,21 @@ def upload():
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
+@app.route('/analyzer/<filename>')
+def analyzer(filename):
+    try:
+        filename = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        packets = rdpcap(filename)
+        return redirect(url_for('home'))       
+    except Exception ,e:
+        return "can't read pcap file" + str(e)
+    #packets.summary()
+    s = packets.sessions()
+    for k, v in s.iteritems():
+        print k
 
 
-@app.route('/netflow/<filename>')
-def netflow(filename):
-    return "ok"
-@app.route('/dns/<filename>')
-def dns(filename):
-   return "ok"
-@app.route('/extract/<filename>')
-def extract(filename):
-    return "ok"
 
-@app.route('/httpdump/<filename>')
-def httpdump(filename):
-   return "ok"
-@app.route('/ip/<filename>')
-def ip(filename):
-    return "ok"
 def connect_db():
     '''
     SQLite3 connect function
