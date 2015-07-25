@@ -1,0 +1,67 @@
+{% set td = {'running':'success','frozen':'info','stopped':'important'} %}
+{% set tr = {'running':'success','frozen':'info','stopped':'error'} %}
+{% set disabled = {'running':'success','frozen':'info','stopped':'important'} %}
+{% extends "layout.html" %}
+{% block title %}Overview{% endblock %}
+{% block content %}
+<div class="span9">
+	{{ super() }}
+	{% if session.su == 'Yes' %}<p class="pull-right" style="margin:10px 10px 0 0;"><a class="btn btn-small btn-danger" data-toggle="modal" data-target="#reboot"><i class="icon-off icon-white"></i> Reboot</a></p>
+	{% if containers != [] %}<p class="pull-right" style="margin:10px 10px 0 0;"><a class="btn btn-small btn-inverse" data-toggle="modal" data-target="#cloneCT"> <i class="icon-repeat icon-white"></i> Clone <abbr title="Container">CT</abbr></a></p>{% endif %}
+	<p class="pull-right" style="margin:10px 10px 0 0;"><a class="btn btn-small btn-success" data-toggle="modal" data-target="#createCT"><i class="icon-plus-sign icon-white"></i> Create <abbr title="Container">CT</abbr></a></p>{% endif %}
+
+	<div class="hero-unit">
+		{% if dist == 'Unknown' %}<div class="alert alert-error">Pcap Total</div>{% endif %}
+		<div class="row">
+			<div class="span3" style="margin-left:20px;">
+				
+			</div>
+		</div>
+		<a href="http://lxc-webpanel.github.io/" target="_blank"><span class="label label-info hide" id="version" style="position:relative; float:right; bottom:0; margin:-20px -23px 0 0;"><i class="icon-info-sign icon-white"></i> New version is out ! (<span id="vernumber"></span>)</span></a>
+	</div>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Source</th>
+				<th>Sport</th>
+				<th>Destination</th>
+				<th>Dport</th>
+				<th>Info</th>
+				<th>Actions</th>
+			</tr>
+		</thead>	
+		{% for pkts in packets %}
+			<tbody>
+					<tr class="">
+						<td>{{pkts['srcIP']}}</td>
+						<td>{{pkts['srcPort']}}</td>
+						<td>{{pkts['dstIP']}}</td>
+						<td>{{pkts['dstPort']}}</td>
+						<td>Proto:{{pkts['L4protocol']}},App proto:{{pkts['L7protocol']}},Size:{{pkts['size']}},TTL:{{pkts['ttl']}}</td>
+						<td></td>
+					</tr>
+			</tbody>
+		{% endfor %}
+	</table>
+</div>
+{% if session.su == 'Yes' %}
+	{% include "includes/modal_reboot.html" %}
+	{% include "includes/modal_create.html" %}
+
+	{% if containers != [] %}
+		{% include "includes/modal_clone.html" %}
+		{% include "includes/modal_destroy.html" %}
+	{% endif %}
+{% endif %}
+
+{% endblock %}
+
+{% macro memory_color(value) -%}{% if value != 0 %}{% if 0 <= value <= 511 %}success{% elif 512 <= value < 980 %}warning{% else %}important{% endif %}{% endif %}{%- endmacro %}
+{% macro render_memory_wrapper(value) -%}
+	{% if value != 0 %}<span class="label label-{{ memory_color(value) }}">{{ value }} MB</span>{% endif %}
+{%- endmacro %}
+
+{% block script %}
+<script src="{{ url_for('static', filename='js/bootstrapSwitch.js') }}"></script>
+
+{% endblock %}

@@ -12,6 +12,7 @@ import logging
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from scapy.all import *
 from scapy.utils import *
+import  packetParser
 try:
     import configparser
 except ImportError:
@@ -122,7 +123,15 @@ def hash_passwd(passwd):
 @app.route('/')
 def home():
     if 'username' in session :
-         return render_template('index.html')  # render a template
+	 pr = packetParser.parser()
+         pkts = pr.reader('uploads/file.pcap')
+         return render_template('packets.html',packets=pkts)  # render a template
+    return render_template('login.html')
+
+@app.route('/sessions')
+def sessions():
+    if 'username' in session :
+         return render_template('sessions.html')  # render a template
     return render_template('login.html')
 
 def query_db(query, args=(), one=False):

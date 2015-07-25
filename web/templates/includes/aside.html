@@ -6,8 +6,8 @@
 		</ul>
 		{% if session.su == 'Yes' %}<ul class="nav nav-list">
 			<li class="nav-header">LXC Settings</li>
-			<li{% if request.path=="/settings/lxc-net" %} class="active"{% endif %}><a href=""><i class="icon-globe"></i> Follow Stream</a></li>
-			<li{% if request.path=="/checkconfig" %} class="active"{% endif %}><a href="/netflow"><i class="icon-check"></i> NetFlow </a></li>
+			<li{% if request.path=="/settings/lxc-net" %} class="active"{% endif %}><a href=""><i class="icon-globe"></i> Packets</a></li>
+			<li{% if request.path=="/checkconfig" %} class="active"{% endif %}><a href="/sessions"><i class="icon-check"></i> Sessions </a></li>
 		</ul>{% endif %}
 		<ul class="nav nav-list">
 			<li class="nav-header">Pcap Total</li>

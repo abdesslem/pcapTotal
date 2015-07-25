@@ -19,19 +19,22 @@
 __author__ = 'ask3m'
 
 #--------------------------------------------------------------------
-from scapy.all import *
 import requests
 import json
 from datetime import datetime
+import logging
+logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
+from scapy.all import *
+pkts= []
 class parser:
-        def reader(self):
-            filename = 'uploads/file.pcap'
+        def reader(self,filename):
+            #filename = 'uploads/file.pcap'
             #filename = os.path.join('/uploads', filename)
             packets = rdpcap(filename)
-            #packets.summary()
-            #s = packets.sessions()
-            #for k, v in s.iteritems():
-            self.parseSummary(packets[1])
+            for pkt in packets:
+                res = self.parseSummary(pkt)
+                pkts.append(res)
+	    return pkts
 
 	def parseSummary(self,rawPacket):
 			l2 = rawPacket.summary().split("/")[0].strip()
@@ -109,6 +112,6 @@ class parser:
 					"dstPort": dstPort,\
 					"payload": rawPacket[0].show\
 					}
-			print "Packet Uploaded: " + str(packet["timestamp"]) + " ; " + str(packet["srcIP"]) + " ==> " + str(packet["dstIP"] + "; " + str(packet["L4protocol"]))
+			return packet
+			#print str(packet["srcIP"])+":"+str(packet["srcPort"])
 
-parser().reader()	
