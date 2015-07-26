@@ -12,7 +12,8 @@ import logging
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from scapy.all import *
 from scapy.utils import *
-import  packetParser
+import packetParser
+import streamParser
 try:
     import configparser
 except ImportError:
@@ -131,7 +132,8 @@ def home():
 @app.route('/sessions')
 def sessions():
     if 'username' in session :
-         return render_template('sessions.html')  # render a template
+         ses=streamParser.getSessions('uploads/file.pcap')
+         return render_template('sessions.html',sessions=ses)  # render a template
     return render_template('login.html')
 
 def query_db(query, args=(), one=False):

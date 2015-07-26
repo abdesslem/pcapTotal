@@ -22,22 +22,14 @@
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-				<th>Source</th>
-				<th>Sport</th>
-				<th>Destination</th>
-				<th>Dport</th>
-				<th>Info</th>
-				<th>Actions</th>
+				<th>Sessions</th>
+				<th>Packets</th>
 			</tr>
 		</thead>	
-		{% for pkts in packets %}
+		{% for ses in sessions %}
 			<tbody>
 					<tr class="">
-						<td>{{pkts['srcIP']}}</td>
-						<td>{{pkts['srcPort']}}</td>
-						<td>{{pkts['dstIP']}}</td>
-						<td>{{pkts['dstPort']}}</td>
-						<td>Proto:{{pkts['L4protocol']}},App proto:{{pkts['L7protocol']}},Size:{{pkts['size']}},TTL:{{pkts['ttl']}}</td>
+						<td>{{ses}}</td>
 						<td></td>
 					</tr>
 			</tbody>
