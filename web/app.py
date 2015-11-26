@@ -74,7 +74,7 @@ def analyzer(filename):
     try:
         filename = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         packets = rdpcap(filename)
-        return redirect(url_for('home'))       
+        return redirect(url_for('home'))
     except Exception ,e:
         return "can't read pcap file" + str(e)
     #packets.summary()
@@ -124,7 +124,13 @@ def hash_passwd(passwd):
 @app.route('/')
 def home():
     if 'username' in session :
-	 pr = packetParser.parser()
+         return render_template('index.html')  # render a template
+    return render_template('login.html')
+
+@app.route('/packets')
+def packets():
+    if 'username' in session :
+         pr = packetParser.parser()
          pkts = pr.reader('uploads/file.pcap')
          return render_template('packets.html',packets=pkts)  # render a template
     return render_template('login.html')

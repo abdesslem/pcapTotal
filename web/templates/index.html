@@ -6,18 +6,18 @@
 {% block content %}
 <div class="span9">
 	{{ super() }}
-	{% if session.su == 'Yes' %}<p class="pull-right" style="margin:10px 10px 0 0;"><a class="btn btn-small btn-danger" data-toggle="modal" data-target="#reboot"><i class="icon-off icon-white"></i> Reboot</a></p>
-	{% if containers != [] %}<p class="pull-right" style="margin:10px 10px 0 0;"><a class="btn btn-small btn-inverse" data-toggle="modal" data-target="#cloneCT"> <i class="icon-repeat icon-white"></i> Clone <abbr title="Container">CT</abbr></a></p>{% endif %}
-	<p class="pull-right" style="margin:10px 10px 0 0;"><a class="btn btn-small btn-success" data-toggle="modal" data-target="#createCT"><i class="icon-plus-sign icon-white"></i> Create <abbr title="Container">CT</abbr></a></p>{% endif %}
+	{% if session.su == 'Yes' %}<p class="pull-right" style="margin:10px 10px 0 0;"><a class="btn btn-small btn-danger" data-toggle="modal" data-target="#reboot"><i class="icon-off icon-white"></i> Refresh</a></p>
+	{% if containers != [] %}<p class="pull-right" style="margin:10px 10px 0 0;"><a class="btn btn-small btn-inverse" data-toggle="modal" data-target="#cloneCT"> <i class="icon-repeat icon-white"></i> Scan <abbr title="Container">PCAP</abbr></a></p>{% endif %}
+	<p class="pull-right" style="margin:10px 10px 0 0;"><a class="btn btn-small btn-success" data-toggle="modal" data-target="#createCT"><i class="icon-plus-sign icon-white"></i> upload <abbr title="Container">PCAP</abbr></a></p>{% endif %}
 
 	<div class="hero-unit">
 		{% if dist == 'Unknown' %}<div class="alert alert-error">Pcap Total</div>{% endif %}
 		<div class="row">
 			<div class="span3" style="margin-left:20px;">
-				
+
 			</div>
 		</div>
-		<a href="http://lxc-webpanel.github.io/" target="_blank"><span class="label label-info hide" id="version" style="position:relative; float:right; bottom:0; margin:-20px -23px 0 0;"><i class="icon-info-sign icon-white"></i> New version is out ! (<span id="vernumber"></span>)</span></a>
+		<a href=" target="_blank"><span class="label label-info hide" id="version" style="position:relative; float:right; bottom:0; margin:-20px -23px 0 0;"><i class="icon-info-sign icon-white"></i> New version is out ! (<span id="vernumber"></span>)</span></a>
 	</div>
 	<table class="table table-bordered">
 		<thead>
@@ -29,7 +29,7 @@
 				<th>Info</th>
 				<th>Actions</th>
 			</tr>
-		</thead>	
+		</thead>
 		{% for pkts in packets %}
 			<tbody>
 					<tr class="">
